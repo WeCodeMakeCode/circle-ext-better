@@ -1,11 +1,5 @@
-// % blockNamespace=circle
-// % group="List"
-// % blockSetVariable=myCircleList
-// % block="empty circle list"
-function emptyCircleList () {
-    let circleList2 = 0
-    return circleList2
-}
+//% weight=100 color=#008080 
+//% groups=[ "Create", "Properties",  "Actions", "List"]
 namespace circle{
     //% group="Create"
     //% block="destroy %circle=variables_get(myCircle)"
@@ -28,8 +22,39 @@ namespace circle{
         cs.physicsEngine.addSprite(output);
         return output 
     }
-
+    //% group="List"
+    //% blockSetVariable=myCircle
+    //% block="find circle with %sprite=variables_get(mySprite) in circle list %circles=variables_get(myCirclesList)"
+    export function getCircleWithSprite(sprite:Sprite, circles:Circle[]):Circle {
+        for(let i = 0; i < circles.length; i++) {
+            if(circles[i].sprite == sprite) return circles[i]  
+        }
+        return null
+    }
+    //% group="List"
+    //% blockSetVariable=myCircleList
+    //% block="get circles of kind %kind from circle list %circles=variables_get(myCirclesList)"
+    //% kind.shadow=spritekind
+    export function getCirclesOfKind( kind:number, circles: Circle[]):Circle[] {
+        let spriteList:Sprite[] = sprites.allOfKind(kind)
+        let j = spriteList.find(function(value: Sprite, index: number) {
+            return false
+        })
+        let circleList: Circle[] = []
+        for(let k = 0; k < spriteList.length; k++) {
+            circleList.push(getCircleWithSprite(  spriteList[k], circles))
+        }
+        return circleList
+    }
+    //% group="List"
+    //% blockSetVariable=myCircleList
+    //% block="empty circle list"
+    export function emptyCircleList () {
+        let circleList = 0
+        return circleList
+    }
 }
+//% blockNamespace=circle
 class Circle extends Sprite {
     _radius: number = 0
     _color: number = 0
@@ -56,7 +81,7 @@ class Circle extends Sprite {
         this._dataNumber = 0
     }
 
-    //% group="Actions"  
+    //% group="Properties"  
     //% blockSetVariable="myCircle"
     //% blockCombine block="sprite"
     get sprite():Sprite {
@@ -106,21 +131,5 @@ class Circle extends Sprite {
         this.image.fillCircle(this._centerX, this._centerY, this._radius, this._fillColor)
     }
 }
-function getCircleWithSprite(sprite:Sprite, circles:Circle[]):Circle {
-    for(let i = 0; i < circles.length; i++) {
-        if(circles[i].sprite == sprite) return circles[i]  
-    }
-    return null
-}
-function getCirclesOfKind(kind:number, circles: Circle[]):Circle[] {
-    let spriteList:Sprite[] = sprites.allOfKind(kind)
-    let j = spriteList.find(function(value: Sprite, index: number) {
-        return false
-    })
-    let circleList: Circle[] = []
-    for(let k = 0; k < spriteList.length; k++) {
-        circleList.push(getCircleWithSprite( spriteList[k], circles))
-    }
-    return circleList
-}
+
 
