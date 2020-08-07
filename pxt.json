@@ -1,5 +1,5 @@
 {
-    "name": "circle ext adv",
+    "name": "circle ext better",
     "description": "",
     "dependencies": {
         "device": "*"
@@ -13,7 +13,7 @@
         "test.ts"
     ],
     "targetVersions": {
-        "target": "1.0.15",
+        "target": "1.1.5",
         "targetId": "arcade"
     },
     "supportedTargets": [
