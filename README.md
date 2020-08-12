@@ -1,7 +1,7 @@
  
 
 
-> Open this page at [https://wecodemakecode.github.io/circle-ext-adv/](https://wecodemakecode.github.io/circle-ext-adv/)
+
 
 ## Use as Extension
 
